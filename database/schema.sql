@@ -1,4 +1,4 @@
--- LAKNOR Email Subscription Database Schema
+-- CURALOG Email Subscription Database Schema
 -- Run these commands in your Supabase SQL Editor
 
 -- Enable UUID extension

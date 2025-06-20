@@ -33,8 +33,8 @@ export default function Custom404() {
   return (
     <>
       <Head>
-        <title>404 - Page Not Found | LAKNOR</title>
-        <meta name="description" content="The page you're looking for doesn't exist. Return to LAKNOR homepage." />
+        <title>404 - Page Not Found | CURALOG</title>
+        <meta name="description" content="The page you're looking for doesn't exist. Return to CURALOG homepage." />
       </Head>
       
       <div className="min-h-screen bg-white flex flex-col items-center justify-center px-4">

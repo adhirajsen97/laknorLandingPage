@@ -1,6 +1,17 @@
-# LAKNOR Landing Page
+# CURALOG Landing Page
 
-A modern, responsive landing page for LAKNOR - a lightweight health-record management platform designed for middle-aged and older users. Built with Next.js, React, and Tailwind CSS, featuring scroll-triggered animations and comprehensive accessibility features.
+A modern, responsive landing page for CURALOG - a lightweight health-record management platform designed for middle-aged and older users. Built with Next.js, React, and Tailwind CSS, featuring scroll-triggered animations and comprehensive accessibility features.
+
+## 🚀 Quick Deployment
+
+Deploy to Vercel in under 10 minutes:
+1. Fork/clone this repo
+2. Set up Supabase (see `DEPLOY_CHECKLIST.md`)
+3. Deploy to Vercel with one click:
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/yourusername/curalog&env=NEXT_PUBLIC_SUPABASE_URL,SUPABASE_SERVICE_ROLE_KEY&envDescription=Required%20environment%20variables&envLink=https://github.com/yourusername/curalog/blob/main/env.example)
+
+See `DEPLOY_CHECKLIST.md` for step-by-step instructions.
 
 ## ✨ Features
 
@@ -354,7 +365,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-**Ready to launch LAKNOR? 🚀**
+**Ready to launch CURALOG? 🚀**
 
 1. Replace all placeholder content
 2. Configure your email service

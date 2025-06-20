@@ -1,4 +1,4 @@
-# Vercel Deployment Guide for LAKNOR
+# Vercel Deployment Guide for CURALOG
 
 ## 🚀 Quick Setup
 
@@ -28,7 +28,7 @@ NEXT_PUBLIC_FACEBOOK_PIXEL_ID=your_facebook_pixel_id
 #### Optional - Site Configuration
 ```
 NEXT_PUBLIC_SITE_URL=https://your-domain.vercel.app
-NEXT_PUBLIC_SUPPORT_EMAIL=support@laknor.com
+NEXT_PUBLIC_SUPPORT_EMAIL=support@curalog.app
 ```
 
 ### 3. Deploy to Vercel
@@ -158,6 +158,6 @@ Supported integrations:
 
 ---
 
-**Your LAKNOR landing page is now production-ready! 🎉**
+**Your CURALOG landing page is now production-ready! 🎉**
 
 Monitor your Supabase dashboard to see email subscriptions coming in, and check your analytics for traffic insights. 

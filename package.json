@@ -1,7 +1,7 @@
 {
-  "name": "laknor-landing",
+  "name": "curalog-landing",
   "version": "1.0.0",
-  "description": "LAKNOR - Secure, Simple Digital Health Records Landing Page",
+  "description": "CURALOG - Secure, Simple Digital Health Records Landing Page",
   "private": true,
   "scripts": {
     "dev": "next dev",

@@ -1,4 +1,4 @@
--- Fix RLS Policies for LAKNOR Email Subscriptions
+-- Fix RLS Policies for CURALOG Email Subscriptions
 -- Run this in your Supabase SQL Editor if you're getting RLS policy errors
 
 -- Drop existing policies

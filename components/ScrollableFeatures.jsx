@@ -70,7 +70,7 @@ const ScrollableFeatures = () => {
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 mb-6 tracking-tight">
-            Why Choose LAKNOR?
+            Why Choose CURALOG?
           </h2>
           <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto font-medium leading-relaxed">
             Experience the future of health record management with features designed 
@@ -116,7 +116,7 @@ const ScrollableFeatures = () => {
         {/* Bottom CTA */}
         <div className="text-center mt-16">
           <div className="inline-flex items-center space-x-2 text-primary-600 font-medium">
-            <span>Ready to experience secure health records?</span>
+            <span>Building the future of health record management</span>
             <svg className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>

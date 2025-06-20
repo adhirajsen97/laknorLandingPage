@@ -42,8 +42,7 @@ const Principles = () => {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
         </svg>
       ),
-      color: 'bg-accent-100 text-accent-600',
-      badge: 'Coming Soon'
+      color: 'bg-accent-100 text-accent-600'
     }
   ]
 
@@ -55,7 +54,7 @@ const Principles = () => {
             Built on Simplicity & Privacy
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            LAKNOR's core principles ensure your health records are managed with the highest standards of security, usability, and accessibility.
+            CURALOG's core principles ensure your health records are managed with the highest standards of security, usability, and accessibility.
           </p>
         </div>
 

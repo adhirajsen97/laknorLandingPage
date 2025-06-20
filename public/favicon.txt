@@ -1,0 +1,20 @@
+FAVICON SETUP INSTRUCTIONS
+==========================
+
+1. Create your CURALOG favicon:
+   - Use a "C" letter or your logo
+   - Create multiple sizes: 16x16, 32x32, 180x180 (for Apple)
+   - Use primary brand color (#14b8a6)
+
+2. Generate favicon files:
+   - Go to https://favicon.io or https://realfavicongenerator.net
+   - Upload your logo/icon
+   - Download the favicon package
+
+3. Replace files in /public:
+   - favicon.ico (main favicon)
+   - apple-touch-icon.png (for iOS)
+   - favicon-32x32.png
+   - favicon-16x16.png
+
+4. The HTML meta tags are already set up in _document.js 

@@ -17,7 +17,7 @@ const HowItWorks = () => {
     },
     {
       title: 'Organize & Secure',
-      description: 'LAKNOR extracts, tags, and encrypts your data for easy access.',
+      description: 'CURALOG extracts, tags, and encrypts your data for easy access.',
       icon: (
         <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2V7zm0 0a2 2 0 012-2h6l2 2h6a2 2 0 012 2v2H3V7z" />
@@ -80,10 +80,10 @@ const HowItWorks = () => {
       <div className="container-width">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 mb-4 tracking-tight">
-            How LAKNOR Works in 3 Steps
+            How CURALOG Works in 3 Steps
           </h2>
           <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto font-medium leading-relaxed">
-            Getting started with LAKNOR is simple. Follow these three easy steps to take control of your health records.
+                          Getting started with CURALOG is simple. Follow these three easy steps to take control of your health records.
           </p>
         </div>
 

@@ -230,7 +230,7 @@ const Header = () => {
                 </svg>
               </div>
             </div>
-            <span className="text-xl font-bold text-gray-900 tracking-tight">LAKNOR</span>
+            <span className="text-xl font-bold text-gray-900 tracking-tight">CURALOG</span>
           </div>
 
           <div className="relative">

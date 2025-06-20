@@ -1,4 +1,4 @@
-# LAKNOR Landing Page - Production Deployment Guide
+# CURALOG Landing Page - Production Deployment Guide
 
 ## 🚀 Production Checklist
 
@@ -22,11 +22,11 @@ CONVERTKIT_FORM_ID=your_convertkit_form_id
 
 # OR SendGrid
 SENDGRID_API_KEY=your_sendgrid_api_key
-SENDGRID_FROM_EMAIL=hello@laknor.com
+SENDGRID_FROM_EMAIL=hello@curalog.app
 
 # Site Configuration
-NEXT_PUBLIC_SITE_URL=https://laknor.com
-NEXT_PUBLIC_SUPPORT_EMAIL=support@laknor.com
+NEXT_PUBLIC_SITE_URL=https://curalog.app
+NEXT_PUBLIC_SUPPORT_EMAIL=support@curalog.app
 ```
 
 ### 2. Email Service Integration
@@ -59,13 +59,13 @@ The site is currently configured to work with multiple email service providers. 
 ### 4. Social Media Accounts
 
 Update the social media links in `components/Footer.jsx`:
-- Create Twitter account: @laknor_health
-- Create LinkedIn company page: /company/laknor
-- Create GitHub organization: /laknor
+- Create Twitter account: @curalog_health
+- Create LinkedIn company page: /company/curalog
+- Create GitHub organization: /curalog
 
 ### 5. Domain and SSL
 
-1. Register your domain (laknor.com)
+1. Register your domain (curalog.app)
 2. Configure DNS settings
 3. Set up SSL certificate (automatic with most hosting providers)
 
@@ -201,11 +201,11 @@ Enhanced typography is consistently applied across components:
 ## 📧 Support
 
 For deployment issues or questions:
-- Email: support@laknor.com
+- Email: support@curalog.app
 - Create an issue in the GitHub repository
 
 ---
 
-**Ready to launch LAKNOR? 🎉**
+**Ready to launch CURALOG? 🎉**
 
 This production-ready setup includes all necessary components for a successful health-tech landing page launch. 
