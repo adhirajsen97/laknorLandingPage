@@ -171,22 +171,22 @@ const ScrollableFeatures = () => {
   return (
     <section 
       ref={sectionRef}
-      className="py-20 bg-white relative overflow-hidden"
+      className="py-16 sm:py-20 bg-white relative overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 mb-6 tracking-tight">
+        <div className="text-center mb-12 sm:mb-16">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold text-gray-900 mb-4 sm:mb-6 tracking-tight">
             Why Choose CURALOG?
           </h2>
-          <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto font-medium leading-relaxed">
+          <p className="text-lg sm:text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto font-medium leading-relaxed">
             Experience the future of health record management with features designed 
             around security, simplicity, and your peace of mind.
           </p>
         </div>
 
         {/* Mobile Swipeable Features */}
-        <div className="lg:hidden mb-8">
+        <div className="lg:hidden mb-6 sm:mb-8">
           <div 
             className="relative overflow-hidden rounded-2xl select-none"
             onTouchStart={handleTouchStart}
@@ -208,18 +208,18 @@ const ScrollableFeatures = () => {
             >
               {features.map((feature, index) => (
                 <div key={index} className="w-full flex-shrink-0 px-4">
-                  <div className="bg-gradient-to-br from-primary-50 to-white p-8 rounded-2xl border border-primary-100 shadow-lg h-80 flex flex-col justify-center text-center">
+                  <div className="bg-gradient-to-br from-primary-50 to-white p-6 sm:p-8 rounded-2xl border border-primary-100 shadow-lg h-72 sm:h-80 flex flex-col justify-center text-center">
                     {/* Icon */}
-                    <div className="text-6xl mb-6 transform transition-transform duration-300">
+                    <div className="text-4xl sm:text-6xl mb-4 sm:mb-6 transform transition-transform duration-300">
                       {feature.icon}
                     </div>
                     
                     {/* Content */}
-                    <h3 className="text-2xl font-bold text-gray-900 mb-4 text-primary-700">
+                    <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4 text-primary-700">
                       {feature.title}
                     </h3>
                     
-                    <p className="text-gray-600 leading-relaxed text-lg">
+                    <p className="text-gray-600 leading-relaxed text-base sm:text-lg px-2 sm:px-0">
                       {feature.description}
                     </p>
                   </div>
@@ -229,14 +229,14 @@ const ScrollableFeatures = () => {
           </div>
 
           {/* Mobile Pagination Dots */}
-          <div className="flex justify-center mt-6 space-x-2">
+          <div className="flex justify-center mt-4 sm:mt-6 space-x-2">
             {features.map((_, index) => (
               <button
                 key={index}
                 onClick={() => goToSlide(index)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full transition-all duration-300 ${
                   index === currentMobileSlide 
-                    ? 'bg-primary-600 w-8' 
+                    ? 'bg-primary-600 w-6 sm:w-8' 
                     : 'bg-gray-300 hover:bg-gray-400'
                 }`}
                 aria-label={`Go to slide ${index + 1}`}
@@ -245,14 +245,58 @@ const ScrollableFeatures = () => {
           </div>
 
           {/* Mobile Swipe Hint */}
-          <div className="text-center mt-4 text-sm text-gray-500 flex items-center justify-center space-x-2">
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16l-4-4m0 0l4-4m-4 4h18" />
-            </svg>
-            <span>Swipe to explore features</span>
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
+          <div className="text-center mt-3 sm:mt-4 text-xs sm:text-sm text-gray-500 flex items-center justify-center space-x-3 sm:space-x-4">
+            {/* Left Arrow */}
+            <button
+              onClick={() => {
+                if (currentMobileSlide > 0) {
+                  setCurrentMobileSlide(prev => prev - 1)
+                  setIsAutoScrolling(false)
+                  setTimeout(() => setIsAutoScrolling(true), 8000)
+                  if (navigator.vibrate) {
+                    navigator.vibrate(50)
+                  }
+                }
+              }}
+              disabled={currentMobileSlide === 0}
+              className={`p-1.5 sm:p-2 rounded-full transition-all duration-200 ${
+                currentMobileSlide === 0 
+                  ? 'text-gray-300 cursor-not-allowed' 
+                  : 'text-primary-600 hover:text-primary-700 hover:bg-primary-50 active:scale-95'
+              }`}
+              aria-label="Previous feature"
+            >
+              <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+            
+            <span className="mx-1 sm:mx-2 text-xs sm:text-sm">Swipe to explore features</span>
+            
+            {/* Right Arrow */}
+            <button
+              onClick={() => {
+                if (currentMobileSlide < features.length - 1) {
+                  setCurrentMobileSlide(prev => prev + 1)
+                  setIsAutoScrolling(false)
+                  setTimeout(() => setIsAutoScrolling(true), 8000)
+                  if (navigator.vibrate) {
+                    navigator.vibrate(50)
+                  }
+                }
+              }}
+              disabled={currentMobileSlide === features.length - 1}
+              className={`p-1.5 sm:p-2 rounded-full transition-all duration-200 ${
+                currentMobileSlide === features.length - 1 
+                  ? 'text-gray-300 cursor-not-allowed' 
+                  : 'text-primary-600 hover:text-primary-700 hover:bg-primary-50 active:scale-95'
+              }`}
+              aria-label="Next feature"
+            >
+              <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
           </div>
         </div>
 
@@ -292,10 +336,10 @@ const ScrollableFeatures = () => {
         </div>
 
         {/* Bottom CTA */}
-        <div className="text-center mt-16">
-          <div className="inline-flex items-center space-x-2 text-primary-600 font-medium">
+        <div className="text-center mt-12 sm:mt-16">
+          <div className="inline-flex items-center space-x-2 text-primary-600 font-medium text-sm sm:text-base">
             <span>Building the future of health record management</span>
-            <svg className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
           </div>

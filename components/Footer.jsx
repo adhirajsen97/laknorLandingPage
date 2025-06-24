@@ -354,7 +354,7 @@ const Footer = () => {
             <p className="text-sm text-gray-600 mb-1">
               © 2025 CURALOG. All rights reserved.
             </p>
-            <p className="text-xs text-gray-500">
+            <p className="text-[10px] text-gray-400 opacity-75">
               CURALOG is a trademark of CURALOG, Inc. Built with ❤️ for better healthcare.
             </p>
           </div>
