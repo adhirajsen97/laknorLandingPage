@@ -348,6 +348,16 @@ const Footer = () => {
               </a>
             ))}
           </div>
+
+          {/* Simple Copyright Section */}
+          <div className="mt-8 text-center">
+            <p className="text-sm text-gray-600 mb-1">
+              © 2025 CURALOG. All rights reserved.
+            </p>
+            <p className="text-xs text-gray-500">
+              CURALOG is a trademark of CURALOG, Inc. Built with ❤️ for better healthcare.
+            </p>
+          </div>
         </div>
       </footer>
     </>

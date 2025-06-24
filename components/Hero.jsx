@@ -43,6 +43,7 @@ const Hero = ({ onOpenEmailModal }) => {
   const [email, setEmail] = useState('')
   const [emailError, setEmailError] = useState('')
   const [isShaking, setIsShaking] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const emailInputRef = useRef(null)
 
   // A/B Testing: Choose variant based on environment or URL param
@@ -83,7 +84,10 @@ const Hero = ({ onOpenEmailModal }) => {
     }
     
     // If valid, proceed
+    setIsSubmitting(true)
     onOpenEmailModal(email)
+    // Reset submitting state after modal opens
+    setTimeout(() => setIsSubmitting(false), 1000)
   }
 
   const handleEmailChange = (e) => {
@@ -101,23 +105,41 @@ const Hero = ({ onOpenEmailModal }) => {
   }
 
   return (
-    <section className="min-h-screen flex items-center bg-gradient-to-br from-primary-50 via-white to-accent-50">
-      <div className="container-width px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left Column - Content */}
-          <div className="space-y-8">
-            <div className="space-y-6">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-gray-900 leading-[1.1] text-balance tracking-tight">
+    <section className="min-h-screen flex items-center bg-gradient-to-br from-primary-50 via-white to-accent-50 relative overflow-hidden">
+      {/* Mobile-first background pattern - subtle and decorative */}
+      <div className="absolute top-0 left-0 right-0 h-screen lg:hidden">
+        <div className="h-32 w-full opacity-3" style={{
+          backgroundImage: 'radial-gradient(circle at 1px 1px, rgb(20 184 166) 1px, transparent 1px)',
+          backgroundSize: '20px 20px'
+        }}></div>
+      </div>
+
+      <div className="container-width px-4 sm:px-6 lg:px-8 py-16 sm:py-12 lg:py-12 relative z-10">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+          {/* Left Column - Content (now full width on mobile) */}
+          <div className="space-y-8 sm:space-y-6 lg:space-y-8 lg:order-1">
+            <div className="space-y-6 sm:space-y-4 lg:space-y-6">
+              <h1 className="
+                text-[2.75rem] leading-[3rem] tracking-[-0.02em]
+                sm:text-4xl sm:leading-[1.1] sm:tracking-tight
+                md:text-5xl lg:text-6xl xl:text-7xl 
+                font-extrabold text-gray-900 text-balance
+              ">
                 {currentHeadline}
               </h1>
-              <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium">
+              <p className="
+                text-lg leading-[1.6] 
+                sm:text-xl sm:leading-relaxed 
+                md:text-2xl 
+                text-gray-600 font-medium max-w-2xl
+              ">
                 {currentSubheadline}
               </p>
             </div>
 
-            {/* Email Input */}
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-              <div className="space-y-4">
+            {/* Email Input - Mobile Optimized */}
+            <div className="bg-white rounded-2xl sm:rounded-xl shadow-sm border border-gray-200 p-6 sm:p-4 lg:p-6">
+              <div className="space-y-4 sm:space-y-3 lg:space-y-4">
                 <div>
                   <label htmlFor="email" className="sr-only">
                     Email address
@@ -131,12 +153,8 @@ const Hero = ({ onOpenEmailModal }) => {
                       value={email}
                       onChange={handleEmailChange}
                       onKeyPress={handleKeyPress}
+                      className="w-full px-4 py-4 sm:px-4 sm:py-3 border border-gray-300 rounded-xl sm:rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent text-base sm:text-base placeholder-gray-500"
                       placeholder="Enter your email address"
-                      className={`input-field transition-all duration-200 ${
-                        emailError 
-                          ? 'border-red-500 focus:ring-red-500 focus:border-red-500 pr-10' 
-                          : ''
-                      } ${isShaking ? 'animate-shake' : ''}`}
                       required
                     />
                     {emailError && (
@@ -148,33 +166,33 @@ const Hero = ({ onOpenEmailModal }) => {
                     )}
                   </div>
                   {emailError && (
-                    <p className="mt-2 text-sm text-red-600 animate-fade-in">
+                    <p className="text-red-600 text-sm animate-fade-in">
                       {emailError}
                     </p>
                   )}
                 </div>
-
                 <button
                   onClick={handleGetNotified}
-                  className="btn-primary w-full transform transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
+                  disabled={isSubmitting}
+                  className="w-full bg-teal-600 text-white py-4 sm:py-3 px-6 rounded-xl sm:rounded-lg hover:bg-teal-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 font-semibold text-base sm:text-base shadow-sm hover:shadow-md active:scale-[0.98]"
                 >
                   Get Notified
                 </button>
               </div>
               
-              <p className="text-xs text-gray-500 mt-4 text-center">
+              <p className="text-xs sm:text-sm text-gray-500 mt-3 sm:mt-4 text-center">
                 🔒 <span className="font-medium">Secure</span> • 🌟 <span className="font-medium">Simple</span> • 📱 <span className="font-medium">Offline-ready</span>
               </p>
             </div>
           </div>
 
-          {/* Right Column - Illustration */}
-          <div className="relative">
+          {/* Right Column - Desktop Illustration Only */}
+          <div className="hidden lg:block relative lg:order-2">
             <div className="relative max-w-md mx-auto lg:max-w-none">
               <div className="aspect-square bg-gradient-to-br from-primary-100 to-accent-100 rounded-2xl flex items-center justify-center overflow-hidden relative">
                 {/* Animated medical records visualization */}
                 <div className="relative w-full h-full flex items-center justify-center">
-                  {/* Background grid pattern */}
+                  {/* Background grid pattern - desktop only */}
                   <div className="absolute inset-0 opacity-10">
                     <div className="h-full w-full" style={{
                       backgroundImage: 'radial-gradient(circle at 1px 1px, rgb(20 184 166) 1px, transparent 1px)',

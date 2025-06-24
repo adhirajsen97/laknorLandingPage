@@ -30,6 +30,7 @@ export const emailService = {
           source: options.source || 'landing_page',
           ip_address: options.ipAddress || null,
           user_agent: options.userAgent || null,
+          country: options.country || null,
           utm_source: options.utmSource || null,
           utm_medium: options.utmMedium || null,
           utm_campaign: options.utmCampaign || null,
@@ -57,6 +58,7 @@ export const emailService = {
           source: options.source || 'email_modal',
           ip_address: options.ipAddress || null,
           user_agent: options.userAgent || null,
+          country: options.country || null,
           notes: options.notes || null
         }
       ])

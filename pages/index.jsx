@@ -11,6 +11,7 @@ import HowItWorks from '../components/HowItWorks'
 import EmailModal from '../components/EmailModal'
 import Footer from '../components/Footer'
 import SocialProof from '../components/SocialProof'
+import ScrollToTop from '../components/ScrollToTop'
 
 export default function Home() {
   const [isEmailModalOpen, setIsEmailModalOpen] = useState(false)
@@ -330,6 +331,9 @@ export default function Home() {
           onClose={closeEmailModal}
           email={userEmail}
         />
+
+        {/* Scroll to Top Button */}
+        <ScrollToTop />
       </div>
     </>
   )

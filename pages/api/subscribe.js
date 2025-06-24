@@ -1,5 +1,29 @@
 import { emailService } from '../../utils/supabase'
 
+// Function to get country from IP address
+async function getCountryFromIP(ip) {
+  try {
+    // Using ipapi.co for free IP geolocation (supports 1000 requests/day for free)
+    const response = await fetch(`http://ipapi.co/${ip}/country_name/`, {
+      headers: {
+        'User-Agent': 'CURALOG/1.0'
+      },
+      timeout: 5000 // 5 second timeout
+    })
+    
+    if (response.ok) {
+      const country = await response.text()
+      return country.trim()
+    }
+  } catch (error) {
+    console.error('Error fetching country:', error)
+  }
+  
+  // Fallback to detecting from CF-IPCountry header (Cloudflare)
+  // or other common headers
+  return null
+}
+
 // Email subscription API endpoint
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -27,6 +51,21 @@ export default async function handler(req, res) {
 
     const userAgent = req.headers['user-agent'] || null
 
+    // Get country from IP address
+    let country = null
+    if (clientIP && clientIP !== '127.0.0.1' && clientIP !== '::1') {
+      // Try Cloudflare country header first (fastest)
+      country = req.headers['cf-ipcountry'] || 
+               req.headers['x-vercel-ip-country'] || 
+               req.headers['x-country-code']
+      
+      // If no header, try IP geolocation API
+      if (!country) {
+        const detectedCountry = await getCountryFromIP(clientIP)
+        country = detectedCountry
+      }
+    }
+
     // Extract UTM parameters if present
     const { utm_source, utm_medium, utm_campaign } = req.query
 
@@ -34,6 +73,7 @@ export default async function handler(req, res) {
       marketingConsent,
       ipAddress: clientIP,
       userAgent,
+      country, // Add country to options
       utmSource: utm_source,
       utmMedium: utm_medium,
       utmCampaign: utm_campaign,
@@ -54,6 +94,7 @@ export default async function handler(req, res) {
       email,
       subscriptionType,
       marketingConsent,
+      country,
       timestamp: new Date().toISOString(),
       id: result.id
     })

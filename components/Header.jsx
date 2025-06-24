@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 
 const Header = () => {
   const [activeItem, setActiveItem] = useState('home')
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const squircleRef = useRef(null)
   const navItemsRef = useRef({})
 
@@ -75,7 +76,7 @@ const Header = () => {
 
     // Calculate responsive squircle size (same as CSS)
     const isSmallScreen = window.innerWidth < 640
-    const squircleSize = isSmallScreen ? 40 : 48 // w-10 h-10 = 40px, sm:w-12 sm:h-12 = 48px
+    const squircleSize = isSmallScreen ? 48 : 48 // Increased mobile size for better touch
 
     // Calculate precise center position
     const iconCenterX = iconRect.left - containerRect.left + iconRect.width / 2
@@ -95,6 +96,12 @@ const Header = () => {
 
   const handleItemClick = (item) => {
     setActiveItem(item.id)
+    setIsMobileMenuOpen(false) // Close mobile menu if open
+    
+    // Haptic feedback simulation for mobile
+    if (window.navigator?.vibrate) {
+      window.navigator.vibrate(50)
+    }
     
     const rotations = { home: 180, features: 360, about: 540 }
     
@@ -220,9 +227,9 @@ const Header = () => {
   return (
     <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-gray-200">
       <div className="max-w-7xl mx-auto">
-        <div className="flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16 sm:h-16 px-4 sm:px-6 lg:px-8">
           <div className="flex items-center space-x-3">
-            <div className="relative w-10 h-10">
+            <div className="relative w-10 h-10 sm:w-10 sm:h-10">
               <div className="w-full h-full bg-gradient-to-br from-primary-600 to-primary-700 rounded-xl flex items-center justify-center shadow-lg">
                 <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -233,14 +240,30 @@ const Header = () => {
             <span className="text-xl font-bold text-gray-900 tracking-tight">CURALOG</span>
           </div>
 
-          <div className="relative">
+          {/* Mobile Menu Toggle */}
+          <button
+            className="sm:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle mobile menu"
+          >
+            <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              {isMobileMenuOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </svg>
+          </button>
+
+          {/* Desktop Navigation */}
+          <div className="hidden sm:block relative">
             <div className="nav-wrapper relative flex space-x-4 sm:space-x-8">
               {navItems.map((item) => (
                 <div key={item.id} className="nav-item">
                   <button
                     ref={(el) => navItemsRef.current[item.id] = el}
                     onClick={() => handleItemClick(item)}
-                    className={`icon-wrapper p-2 sm:p-3 rounded-lg transition-all duration-300 ${
+                    className={`icon-wrapper p-3 sm:p-3 rounded-lg transition-all duration-300 ${
                       activeItem === item.id 
                         ? 'text-white scale-110' 
                         : 'text-gray-600 hover:text-gray-900'
@@ -256,7 +279,7 @@ const Header = () => {
             <div
               ref={squircleRef}
               id="squircle"
-              className="absolute w-10 h-10 sm:w-12 sm:h-12 bg-primary-600 rounded-xl transition-all duration-500 ease-in-out"
+              className="absolute w-12 h-12 sm:w-12 sm:h-12 bg-primary-600 rounded-xl transition-all duration-500 ease-in-out"
               style={{
                 transform: 'rotate(180deg)',
                 left: '0px',
@@ -265,6 +288,38 @@ const Header = () => {
                 willChange: 'transform'
               }}
             />
+          </div>
+        </div>
+
+        {/* Mobile Menu Dropdown */}
+        <div className={`
+          sm:hidden overflow-hidden transition-all duration-300 ease-in-out
+          ${isMobileMenuOpen ? 'max-h-48 opacity-100' : 'max-h-0 opacity-0'}
+        `}>
+          <div className="px-4 py-4 border-t border-gray-200 bg-white/95 backdrop-blur-sm">
+            <div className="grid grid-cols-3 gap-4">
+              {navItems.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => handleItemClick(item)}
+                  className={`
+                    flex flex-col items-center p-4 rounded-xl transition-all duration-300
+                    transform hover:scale-105 active:scale-95 touch-manipulation
+                    ${activeItem === item.id 
+                      ? 'bg-primary-600 text-white shadow-lg' 
+                      : 'bg-gray-50 text-gray-600 hover:bg-gray-100'
+                    }
+                  `}
+                >
+                  <div className="mb-2">
+                    {item.icon}
+                  </div>
+                  <span className="text-xs font-medium">
+                    {item.label}
+                  </span>
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </div>
