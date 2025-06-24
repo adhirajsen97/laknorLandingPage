@@ -7,7 +7,11 @@ const ScrollableFeatures = () => {
   const sectionRef = useRef(null)
   const mobileScrollRef = useRef(null)
   const touchStartX = useRef(null)
+  const touchStartY = useRef(null)
   const touchEndX = useRef(null)
+  const touchEndY = useRef(null)
+  const touchStartTime = useRef(null)
+  const isDragging = useRef(false)
   
   // Simplified feature set - focusing on the most important ones
   const features = [
@@ -80,26 +84,79 @@ const ScrollableFeatures = () => {
   // Touch handlers for mobile swipe
   const handleTouchStart = (e) => {
     touchStartX.current = e.targetTouches[0].clientX
+    touchStartY.current = e.targetTouches[0].clientY
+    touchStartTime.current = Date.now()
+    isDragging.current = false
     setIsAutoScrolling(false) // Stop auto-scroll when user interacts
   }
 
   const handleTouchMove = (e) => {
+    if (!touchStartX.current || !touchStartY.current) return
+    
     touchEndX.current = e.targetTouches[0].clientX
+    touchEndY.current = e.targetTouches[0].clientY
+    
+    const distanceX = Math.abs(touchStartX.current - touchEndX.current)
+    const distanceY = Math.abs(touchStartY.current - touchEndY.current)
+    
+    // If horizontal movement is greater than vertical, prevent default scrolling
+    if (distanceX > distanceY && distanceX > 10) {
+      e.preventDefault()
+      isDragging.current = true
+    }
   }
 
   const handleTouchEnd = () => {
-    if (!touchStartX.current || !touchEndX.current) return
+    if (!touchStartX.current || !touchEndX.current || !touchStartY.current || !touchEndY.current) return
     
-    const distance = touchStartX.current - touchEndX.current
-    const isLeftSwipe = distance > 50
-    const isRightSwipe = distance < -50
-
-    if (isLeftSwipe && currentMobileSlide < features.length - 1) {
-      setCurrentMobileSlide(prev => prev + 1)
+    const distanceX = touchStartX.current - touchEndX.current
+    const distanceY = touchStartY.current - touchEndY.current
+    const absDistanceX = Math.abs(distanceX)
+    const absDistanceY = Math.abs(distanceY)
+    const touchDuration = Date.now() - touchStartTime.current
+    
+    // Calculate velocity (pixels per millisecond)
+    const velocityX = absDistanceX / touchDuration
+    const velocityY = absDistanceY / touchDuration
+    
+    // Minimum thresholds
+    const minSwipeDistance = 30
+    const minSwipeVelocity = 0.1
+    const maxSwipeTime = 800
+    
+    // Check if this is primarily a horizontal swipe
+    const isHorizontalSwipe = absDistanceX > absDistanceY && absDistanceX > minSwipeDistance
+    const isFastEnough = velocityX > minSwipeVelocity || absDistanceX > 80
+    const isQuickEnough = touchDuration < maxSwipeTime
+    
+    // Only process horizontal swipes that meet our criteria
+    if (isHorizontalSwipe && isFastEnough && isQuickEnough) {
+      const isLeftSwipe = distanceX > 0
+      const isRightSwipe = distanceX < 0
+      
+      if (isLeftSwipe && currentMobileSlide < features.length - 1) {
+        setCurrentMobileSlide(prev => prev + 1)
+        // Add haptic feedback if available
+        if (navigator.vibrate) {
+          navigator.vibrate(50)
+        }
+      }
+      if (isRightSwipe && currentMobileSlide > 0) {
+        setCurrentMobileSlide(prev => prev - 1)
+        // Add haptic feedback if available
+        if (navigator.vibrate) {
+          navigator.vibrate(50)
+        }
+      }
     }
-    if (isRightSwipe && currentMobileSlide > 0) {
-      setCurrentMobileSlide(prev => prev - 1)
-    }
+    
+    // Reset values
+    touchStartX.current = null
+    touchStartY.current = null
+    touchEndX.current = null
+    touchEndY.current = null
+    touchStartTime.current = null
+    isDragging.current = false
 
     // Resume auto-scroll after 8 seconds of inactivity
     setTimeout(() => setIsAutoScrolling(true), 8000)
@@ -131,13 +188,20 @@ const ScrollableFeatures = () => {
         {/* Mobile Swipeable Features */}
         <div className="lg:hidden mb-8">
           <div 
-            className="relative overflow-hidden rounded-2xl"
+            className="relative overflow-hidden rounded-2xl select-none"
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
+            style={{ 
+              touchAction: 'pan-y pinch-zoom',
+              WebkitUserSelect: 'none',
+              userSelect: 'none'
+            }}
           >
             <div 
-              className="flex transition-transform duration-500 ease-out"
+              className={`flex transition-transform duration-500 ease-out ${
+                isDragging.current ? 'transition-none' : ''
+              }`}
               style={{ 
                 transform: `translateX(-${currentMobileSlide * 100}%)` 
               }}
